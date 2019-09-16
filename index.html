@@ -1,0 +1,18 @@
+<script src="node_modules/cornerstone-core/dist/cornerstone.min.js"></script>
+<script src="node_modules/dicom-parser/dist/dicomParser.min.js"></script>
+<script src="node_modules/cornerstone-wado-image-loader/dist/cornerstoneWADOImageLoader.min.js"></script>
+<script>
+    cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+    cornerstoneWADOImageLoader.external.dicomParser = dicomParser
+    function test() {
+        const element = document.getElementById('dicom-images');
+        const imageId = 'wadouri:./image.dcm';
+        cornerstone.enable(element);
+        cornerstone.loadAndCacheImage(imageId).then(function(image) {
+            const viewport = cornerstone.getDefaultViewportForImage(element, image);
+            cornerstone.displayImage(element, image, viewport);
+        });
+    }
+</script>
+<div id='dicom-images' style="height: 500px;"></div>
+<button onclick='test()'>Do Test!</button>
